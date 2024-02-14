@@ -1,5 +1,6 @@
 require('dotenv').config()
 const usuarios = require('../routes/user')
+const auth = require('../routes/auth')
 var cors = require('cors')
 const express =require('express') 
 const { dbConnection } = require('../database/config')
@@ -11,6 +12,7 @@ class Server{
         this.port = process.env.PORT
         this.app = express()
         this.usuariosPath = '/api/usuarios'
+        this.authPath = '/api/auth'
 
         //Conectar DB
         this.conectBD()
@@ -35,6 +37,7 @@ class Server{
 
     routes(){
        this.app.use(this.usuariosPath, usuarios)
+       this.app.use(this.authPath, auth)
     }
 
     listen(){
